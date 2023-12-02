@@ -56,13 +56,82 @@ def day_one_part_2():
     file.close()
     print(total)
 
+def day_two_part_1():
+    # file = open('./input_files/day_2_example.txt', 'r')
+    file = open('./input_files/day_2.txt', 'r')
+    red_max = 12
+    green_max = 13
+    blue_max = 14
+    total = 0
+    while True:
+        content = file.readline()
+        if not content:
+            break
+        id = int(content.split(':')[0].split(' ')[1])
+        rounds = content.split(':')[1].split(';')
+        valid = True
+        for r in rounds:
+            colors = r.split(',')
+            for color in colors:
+                match color.split(' ')[2].rstrip('\n'):
+                    case 'blue':
+                        if int(color.split(' ')[1]) > blue_max:
+                            valid = False
+                    case 'red':
+                        if int(color.split(' ')[1]) > red_max:
+                            valid = False
+                    case 'green':
+                        if int(color.split(' ')[1]) > green_max:
+                            valid = False
+                    case _:
+                        print('invalid color')
+                        print(colors)
+                        print(color)
+        if valid:
+            total = total + id
+    print(total)
+
+def day_two_part_2():
+    # file = open('./input_files/day_2_example.txt', 'r')
+    file = open('./input_files/day_2.txt', 'r')
+    total = 0
+    while True:
+        content = file.readline()
+        if not content:
+            break
+        rounds = content.split(':')[1].split(';')
+        blue_min = 0
+        red_min = 0
+        green_min = 0
+        for r in rounds:
+            colors = r.split(',')
+            for color in colors:
+                match color.split(' ')[2].rstrip('\n'):
+                    case 'blue':
+                        if int(color.split(' ')[1]) > blue_min:
+                            blue_min = int(color.split(' ')[1])
+                    case 'red':
+                        if int(color.split(' ')[1]) > red_min:
+                            red_min = int(color.split(' ')[1])
+                    case 'green':
+                        if int(color.split(' ')[1]) > green_min:
+                            green_min = int(color.split(' ')[1])
+                    case _:
+                        print('invalid color')
+                        print(colors)
+                        print(color)
+        print('power: ' + str(red_min * blue_min * green_min))
+        total = total + (red_min * blue_min * green_min)
+    print(total)
 
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # print_hi('PyCharm')
-    day_one_part_1()
-    day_one_part_2()
+    # day_one_part_1()
+    # day_one_part_2()
+    # day_two_part_1()
+    day_two_part_2()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

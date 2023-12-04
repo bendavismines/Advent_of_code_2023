@@ -56,6 +56,40 @@ def day_one_part_2():
     file.close()
     print(total)
 
+
+class Round:
+    def __init__(self, red, green, blue):
+        self.green = green
+        self.red = red
+        self.blue = blue
+    green: int
+    red: int
+    blue: int
+
+    def is_valid(self, red, green, blue):
+        if self.green > green:
+            return False
+        if self.blue > blue:
+            return False
+        if self.red > red:
+            return False
+        return True
+
+
+class Game:
+    def __init__(self, id, rounds):
+        self.id = id
+        self.rounds = rounds
+
+    id: int
+    rounds: list[Round]
+
+    def is_valid(self, red, green, blue):
+        valid = True
+        for r in self.rounds:
+            if not r.is_valid(red, green, blue):
+                valid = False
+        return valid
 def day_two_part_1():
     # file = open('./input_files/day_2_example.txt', 'r')
     file = open('./input_files/day_2.txt', 'r')
@@ -135,3 +169,4 @@ if __name__ == '__main__':
     day_two_part_2()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
